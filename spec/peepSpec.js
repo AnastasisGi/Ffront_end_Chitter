@@ -1,4 +1,4 @@
-describe('peeps',()=>{
+describe('#Peeps',()=>{
 let element;
 let mockClient;
 let peeps;
