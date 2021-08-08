@@ -1,8 +1,11 @@
-describe('#Peeps',()=>{
-let element;
-let mockClient;
-let peeps;
-let expectedHTML;
+describe('Chitter Api front End',()=>{
+  let element;
+  let mockClient;
+  let peeps;
+  let expectedHTML;
+
+
+  describe('#Peeps',()=>{
 
 
 beforeEach(()=>{
@@ -39,3 +42,13 @@ beforeEach(()=>{
 
 
 })
+
+
+
+
+
+})
+
+
+
+
