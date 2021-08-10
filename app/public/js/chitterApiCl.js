@@ -12,7 +12,7 @@ class chitterApiCl {
     async postUsers(username,password){
 
         let postData = this.createSessionUserData(username,password);
-        let postRequest=this.createRequest('user', postData)
+        let postRequest=this.createPostRequest('user', postData)
         let respone = await fetch('https://chitter-backend-api-v2.herokuapp.com/users',postRequest);
         let data = await respone.json();
         return data;
@@ -21,9 +21,19 @@ class chitterApiCl {
     async postSessions(username,password){
 
         let postData = this.createSessionUserData(username,password);
-        let postRequest=this.createRequest('session', postData)
+        let postRequest=this.createPostRequest('session', postData)
         let respone = await fetch('https://chitter-backend-api-v2.herokuapp.com/sessions',postRequest);
         let data = await respone.json();
+        return data;
+    }
+
+
+    async postPeeps(peep,userId,sessionKey){
+
+        let postData={"userId": userId,"body": peep}
+        let postRequest=this.createPostRequest("peep",postData,sessionKey)
+        let response = await fetch('https://chitter-backend-api-v2.herokuapp.com/peeps',postRequest)
+        let data = await response.json();
         return data;
     }
 
@@ -32,27 +42,41 @@ class chitterApiCl {
 
 
     createSessionUserData(username,password){
-    return{
-        "handle":username,
-        "password": password
-    }
-
-    }
+    return{"handle":username,"password": password}}
  
-        createRequest (type,data){
-        let hashbody={};
-        hashbody[type]=data
-        return{
-        method: "POST",
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(hashbody)
 
-        }
 
+
+
+            createPostRequest(type,data,sessionKey){
+                let headers=this.createHeaders(sessionKey);
+                        
+                let hashbody={};
+                hashbody[type]=data
+                return{
+                method: "POST",
+                headers:headers, 
+                body:JSON.stringify(hashbody)
+
+                    }
+
+            }
+
+            createHeaders = (sessionKey)=>{
+                let headers = {'Content-Type': 'application/json'}
+                if (sessionKey!==undefined) {
+                    headers['Athorisation']=`Token token=${sessionKey}`
+                    
+                }
+                return headers;
+            }
+
+
+
+
+
+            
         }
-}
 
 
 

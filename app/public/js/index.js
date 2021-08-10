@@ -1,10 +1,7 @@
 window.addEventListener('load',()=>{
 
-    element = document.getElementById('app');
-    client = new chitterApiCl();
-    peeps=Peeps(element,client);
+    let element = document.getElementById('app');
+    let client = new chitterApiCl();
+    let peeps=Peeps(element,client);
     peeps.render();
-
-
-
 })
